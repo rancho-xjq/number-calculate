@@ -1,0 +1,38 @@
+{
+  "name": "calculate",
+  "version": "1.0.0",
+  "description": "a calculate library",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "eslint src/*.js",
+    "jest": "npm run lint && jest --coverage",
+    "karma": "npm run lint && karma start",
+    "doc": "jsdoc -c jsDoc.config.js README.md",
+    "build:dev": "npx webpack --mode=development --config webpack.config.js",
+    "build:prod": "npx webpack --mode=production --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.3weijia.com/xjq/calculate.git"
+  },
+  "author": "xjq",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.5.5",
+    "@babel/plugin-transform-runtime": "7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "babel-jest": "24.9.0",
+    "babel-loader": "8.0.6",
+    "chai": "4.2.0",
+    "eslint": "6.2.2",
+    "jest": "24.9.0",
+    "jsdoc": "3.6.3",
+    "mocha": "6.2.0",
+    "webpack": "4.39.2",
+    "webpack-cli": "3.3.7"
+  },
+  "dependencies": {
+    "@babel/polyfill": "7.4.4",
+    "@babel/runtime": "7.5.5"
+  }
+}
