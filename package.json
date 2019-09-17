@@ -1,5 +1,5 @@
 {
-  "name": "calculate",
+  "name": "number-calculate",
   "version": "1.0.0",
   "description": "a calculate library",
   "main": "dist/index.js",
@@ -35,4 +35,5 @@
     "@babel/polyfill": "7.4.4",
     "@babel/runtime": "7.5.5"
   }
+
 }
