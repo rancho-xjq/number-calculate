@@ -35,7 +35,7 @@ export function digitLength(num) {
  * @example
  *  float2Fixed(1.23) => 123
  */
-export function float2Fixed(num) {
+function float2Fixed(num) {
   if (num.toString().indexOf('e') === -1) {
     return Number(num.toString().replace('.', ''))
   }
