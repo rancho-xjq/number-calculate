@@ -10,7 +10,7 @@
  * @example strip(0.09999999999999998)=0.1
  */
 export function strip(num, precision = 12) {
-  return +parseFloat(num.toPrecision(precision))
+  return String(parseFloat(num.toPrecision(precision)))
 }
 
 /**
@@ -18,11 +18,11 @@ export function strip(num, precision = 12) {
  * @param {number} num 需要判断的数字
  * @return {number} 小数点后面位数
  * @example
- *  digitLength(0.1) => 1
- *  digitLength(0.12) => 2
- *  digitLength(123.12) => 2
+ *  getDecimalLength(0.1) => 1
+ *  getDecimalLength(0.12) => 2
+ *  getDecimalLength(123.12) => 2
  */
-export function digitLength(num) {
+export function getDecimalLength(num) {
   const eSplit = num.toString().split(/[eE]/)// Get digit length of e
   const len = (eSplit[0].split('.')[1] || '').length - (+(eSplit[1] || 0))
   return len > 0 ? len : 0
@@ -39,7 +39,7 @@ function float2Fixed(num) {
   if (num.toString().indexOf('e') === -1) {
     return Number(num.toString().replace('.', ''))
   }
-  const dLen = digitLength(num)
+  const dLen = getDecimalLength(num)
   return dLen > 0 ? strip(num * Math.pow(10, dLen)) : num
 }
 
@@ -72,7 +72,7 @@ export function mul(num1, num2, ...others) {
   }
   const num1Changed = float2Fixed(num1)
   const num2Changed = float2Fixed(num2)
-  const baseNum = digitLength(num1) + digitLength(num2)
+  const baseNum = getDecimalLength(num1) + getDecimalLength(num2)
   const leftValue = num1Changed * num2Changed
 
   checkBoundary(leftValue)
@@ -93,7 +93,7 @@ export function add(num1, num2, ...others) {
   if (others.length > 0) {
     return add(add(num1, num2), others[0], ...others.slice(1))
   }
-  const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)))
+  const baseNum = Math.pow(10, Math.max(getDecimalLength(num1), getDecimalLength(num2)))
   return (mul(num1, baseNum) + mul(num2, baseNum)) / baseNum
 }
 
@@ -110,7 +110,7 @@ export function sub(num1, num2, ...others) {
   if (others.length > 0) {
     return sub(sub(num1, num2), others[0], ...others.slice(1))
   }
-  const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)))
+  const baseNum = Math.pow(10, Math.max(getDecimalLength(num1), getDecimalLength(num2)))
   return (mul(num1, baseNum) - mul(num2, baseNum)) / baseNum
 }
 
@@ -131,7 +131,7 @@ export function div(num1, num2, ...others) {
   const num2Changed = float2Fixed(num2)
   checkBoundary(num1Changed)
   checkBoundary(num2Changed)
-  return mul((num1Changed / num2Changed), Math.pow(10, digitLength(num2) - digitLength(num1)))
+  return mul((num1Changed / num2Changed), Math.pow(10, getDecimalLength(num2) - getDecimalLength(num1)))
 }
 
 /**
